@@ -695,7 +695,7 @@ int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
         return 0;
     }
 
-    char* szInputFile = NULL;
+    const char* szInputFile;//= NULL; //fix for compile error in vs2010
 	if (strstr(cszCommandLine, "-f ") != NULL)
 	{
 		szInputFile = strstr(cszCommandLine, "-f ") + 3;
@@ -791,7 +791,7 @@ int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 				CString cszUnzipFilename = pszUnzipFilename;
 				delete pszUnzipFilename;
 				cszUnzipFilename.MakeLower();
-				if (cszUnzipFilename.Find(".rpt") > 0)
+				if ((cszUnzipFilename.Find(".rpt") > 0) || (cszUnzipFilename.Find(".csv") > 0)) // fix for new .csv file
 				{
 					bStartParseRPT(pszBuf, iFileSize, iBinaryOutputFlag, 
                                     iDoTicks, iDoSecs, iDoMins, iDoDailys, iDoHot);
