@@ -1,0 +1,30 @@
+=============================================================
+版權宣告:
+本程式碼採用 GNU 組織的 GPL公開版權宣告，歡迎複製、改寫、散佈，
+並要求你應該以同樣的權利條款，授予後續軟體開發使用者。
+對 GPL 的完整條文，請查閱 'COPYING版權宣告.txt
+或訪問: http://www.linux.org.tw/CLDP/OLD/doc/GPL.html
+
+本程式之作者及散播者不負任何擔保責任，使用者若因使用本程式衍生的
+任何形式的損失均需自行負責(包括但不限於: 造成您電腦損壞、資料遺失
+或因使用本程式衍生之投資損失等)。
+
+最初版作者: WLDTW2008 <wldtw2008@googlemail.com>
+             請至網頁: http://wldtw2008.at.3322.org
+=============================================================
+
+1. TaiFexFutureTick_GPL.exe 可以把台灣期交所下載的每日成交明細檔轉檔(TICK 分 秒 日檔資料)至c:\TWFEXData
+2. TWFEXDataEdit_GPL.exe 為一的編輯/瀏覽工具, 可以編輯/瀏覽c:\TWFEXData保存的TICK 分 秒 日檔資料
+
+WLDTW, ABTW, NTTW 的盤後資料轉檔均是透過TaiFexWebDownloader.exe 這支視窗程式達成.
+而TaiFexWebDownloader.exe其實只是個GUI的工具, 真正執行轉檔的是TaiFexFutureTick.exe
+
+由於近日有越來越多的盤後資料需求(諸如台灣上市大盤, 選擇權), 我個人力有未逮，因此決定
+以TaiFexFutureTick.exe為基礎，重新撰寫了TaiFexFutureTick_GPL.exe，並把TaiFexFutureTick_GPL.exe
+以GPL v2 的授權方式發佈, 任何人均可以免費取得TaiFexFutureTick_GPL 的原碼並修改。
+TWFEXDataEdit_GPL.exe 也是同樣理由重新撰寫的。
+
+功能上TaiFexFutureTick_GPL.exe 與 TaiFexFutureTick.exe 完全相同。 但二者的程式碼完全獨立不同，
+兩者完全是不相同的程式，受不同的版權保護與限制，前者為GPL v2版權，後者仍為私人版權。
+因此ABTW, WLDTW, NTTW, TSTW等專案內所含擴的TaiFexFutureTick.exe 與 TWFEXDataEdit.exe 並不受GPL
+版權限制。
