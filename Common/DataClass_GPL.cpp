@@ -246,7 +246,8 @@ void vBuildNSecFromTick(int iMarketOpenTime, int iMarketCloseTime, std::vector<C
 	for (i=0;i<pvecSource->size();++i)
 	{
 		//做成連續秒數 86400格式
-		iTimeinSec = (*pvecSource)[i].iTradeTime/1000000*3600 + (((*pvecSource)[i].iTradeTime/10000)%100)*60 + ((*pvecSource)[i].iTradeTime/100)%100;
+		// fix error
+		iTimeinSec = (*pvecSource)[i].iTradeTime/10000*3600 + (((*pvecSource)[i].iTradeTime/100)%100)*60 + ((*pvecSource)[i].iTradeTime/1)%100;
         //跨日商品 如果交易時間小於收盤時間 那就加86400(讓TICK跨日)
         if (iMarketCloseTime > 86400 &&
             iTimeinSec < (iMarketCloseTime - 86400))
@@ -490,6 +491,9 @@ bool bParseTaiFexFeatureTickData(char* pszData, int* piDate,
             {
                 *pdbPrice2 = atof(token);
             }
+            break;
+        case 8: // fix new format
+
             break;
         default:
             return 0;
