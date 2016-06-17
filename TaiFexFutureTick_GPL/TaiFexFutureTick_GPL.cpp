@@ -483,9 +483,41 @@ bool bStartParseRPT(unsigned char* pszBuf, int iFileSize, int iBinaryOutputFlag,
             fp = fopen(szFileName, "wb");
             if (fp == NULL)
                 continue;
+			
+			// Get customize open/close time
+			int open_time = MARKET_OPEN_TIME;
+			int close_time = MARKET_CLOSE_TIME;
+			{
+				char szDirNamePath[128];
+				char szDirName[128];
+				
+				HANDLE hFind;
+				WIN32_FIND_DATA FindFileData;
+				
+				sprintf(szDirNamePath, "%s\\%s\\OPEN_*", WLDTW_DATA_1SEC_DIR, cszTaiFexAutoSymbol(vecTaiFexFeatureTick[i].szSymbol));
+				hFind = FindFirstFile(szDirNamePath,&FindFileData); // get list of files/folders with pattern
+				if (hFind != INVALID_HANDLE_VALUE) 
+				{
+					int val = atoi(strstr(FindFileData.cFileName,"OPEN_") + 5);
+					if (errno != EINVAL)
+						open_time = val;
+					FindClose(hFind);
+				}
+
+				sprintf(szDirNamePath, "%s\\%s\\CLOSE_*", WLDTW_DATA_1SEC_DIR, cszTaiFexAutoSymbol(vecTaiFexFeatureTick[i].szSymbol));
+				hFind = FindFirstFile(szDirNamePath,&FindFileData); // get list of files/folders with pattern
+				if (hFind != INVALID_HANDLE_VALUE) 
+				{
+					int val = atoi(strstr(FindFileData.cFileName,"CLOSE_") + 6);
+					if (errno != EINVAL)
+						close_time = val;
+					FindClose(hFind);
+				}
+			}
 		    
 		    vec1SecBarInfo.clear();
-		    vBuildNSecFromTick(MARKET_OPEN_TIME, MARKET_CLOSE_TIME, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1SecBarInfo, 1);
+		    //vBuildNSecFromTick(MARKET_OPEN_TIME, MARKET_CLOSE_TIME, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1SecBarInfo, 1);
+			vBuildNSecFromTick(open_time, close_time, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1SecBarInfo, 1);
 
             for (int j=0;j<vec1SecBarInfo.size();++j)
             {
@@ -545,9 +577,41 @@ bool bStartParseRPT(unsigned char* pszBuf, int iFileSize, int iBinaryOutputFlag,
             fp = fopen(szFileName, "wb");
             if (fp == NULL)
                 continue;
-		    
+
+			// Get customize open/close time
+			int open_time = MARKET_OPEN_TIME;
+			int close_time = MARKET_CLOSE_TIME;
+			{
+				char szDirNamePath[128];
+				char szDirName[128];
+				
+				HANDLE hFind;
+				WIN32_FIND_DATA FindFileData;
+				
+				sprintf(szDirNamePath, "%s\\%s\\OPEN_*", WLDTW_DATA_1MIN_DIR, cszTaiFexAutoSymbol(vecTaiFexFeatureTick[i].szSymbol));
+				hFind = FindFirstFile(szDirNamePath,&FindFileData); // get list of files/folders with pattern
+				if (hFind != INVALID_HANDLE_VALUE) 
+				{
+					int val = atoi(strstr(FindFileData.cFileName,"OPEN_") + 5);
+					if (errno != EINVAL)
+						open_time = val;
+					FindClose(hFind);
+				}
+
+				sprintf(szDirNamePath, "%s\\%s\\CLOSE_*", WLDTW_DATA_1MIN_DIR, cszTaiFexAutoSymbol(vecTaiFexFeatureTick[i].szSymbol));
+				hFind = FindFirstFile(szDirNamePath,&FindFileData); // get list of files/folders with pattern
+				if (hFind != INVALID_HANDLE_VALUE) 
+				{
+					int val = atoi(strstr(FindFileData.cFileName,"CLOSE_") + 6);
+					if (errno != EINVAL)
+						close_time = val;
+					FindClose(hFind);
+				}
+			}
+
 		    vec1MinBarInfo.clear();
-		    vBuildNSecFromTick(MARKET_OPEN_TIME, MARKET_CLOSE_TIME, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1MinBarInfo, 60);
+		    //vBuildNSecFromTick(MARKET_OPEN_TIME, MARKET_CLOSE_TIME, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1MinBarInfo, 60);
+			vBuildNSecFromTick(open_time, close_time, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1MinBarInfo, 60);
 
             for (int j=0;j<vec1MinBarInfo.size();++j)
             {
@@ -607,9 +671,41 @@ bool bStartParseRPT(unsigned char* pszBuf, int iFileSize, int iBinaryOutputFlag,
             fp = fopen(szFileName, "wb");
             if (fp == NULL)
                 continue;
-		    
+
+			// Get customize open/close time
+			int open_time = MARKET_OPEN_TIME;
+			int close_time = MARKET_CLOSE_TIME;
+			{
+				char szDirNamePath[128];
+				char szDirName[128];
+				
+				HANDLE hFind;
+				WIN32_FIND_DATA FindFileData;
+				
+				sprintf(szDirNamePath, "%s\\%s\\OPEN_*", WLDTW_DATA_DAILY_DIR, cszTaiFexAutoSymbol(vecTaiFexFeatureTick[i].szSymbol));
+				hFind = FindFirstFile(szDirNamePath,&FindFileData); // get list of files/folders with pattern
+				if (hFind != INVALID_HANDLE_VALUE) 
+				{
+					int val = atoi(strstr(FindFileData.cFileName,"OPEN_") + 5);
+					if (errno != EINVAL)
+						open_time = val;
+					FindClose(hFind);
+				}
+
+				sprintf(szDirNamePath, "%s\\%s\\CLOSE_*", WLDTW_DATA_DAILY_DIR, cszTaiFexAutoSymbol(vecTaiFexFeatureTick[i].szSymbol));
+				hFind = FindFirstFile(szDirNamePath,&FindFileData); // get list of files/folders with pattern
+				if (hFind != INVALID_HANDLE_VALUE) 
+				{
+					int val = atoi(strstr(FindFileData.cFileName,"CLOSE_") + 6);
+					if (errno != EINVAL)
+						close_time = val;
+					FindClose(hFind);
+				}
+			}
+
 		    vec1DayBarInfo.clear();
-		    vBuildNSecFromTick(MARKET_OPEN_TIME, MARKET_CLOSE_TIME, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1DayBarInfo, MARKET_CLOSE_TIME-MARKET_OPEN_TIME);
+		    //vBuildNSecFromTick(MARKET_OPEN_TIME, MARKET_CLOSE_TIME, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1DayBarInfo, MARKET_CLOSE_TIME-MARKET_OPEN_TIME);
+			vBuildNSecFromTick(open_time, close_time, &vecTaiFexFeatureTick[i].vecTickInfo, &vec1DayBarInfo, close_time-open_time); // variable open / close time
 
             for (int j=0;j<vec1DayBarInfo.size();++j)
             {
