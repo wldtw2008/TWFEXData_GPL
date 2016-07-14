@@ -201,12 +201,12 @@ int iGetIsHotData(const char* szSymbol, int iSymbolYearMonth, int iTradeDate)
 	//算出當月份第三個星期三是幾號
 	int i3rdWedDateDay = i1stWedDateDay + 14;
 
-	//算出當月份第2個星期4是幾號, for TJF
-	int i2ndThuDateDay = (i1stWedDateDay==6)? 13 : 13-i1stWedDateDay;
+	//算出當月份第2個星期5是幾號, for TJF
+	int i2ndFriDateDay = (i1stWedDateDay>=6)? 2+i1stWedDateDay : 9+i1stWedDateDay;
 	
 	int iHotYearMonth;
 	//如果交易日大於第三個星期三，那麼熱門月份就是當月+1 (add fix for TJF)
-	if (iTradeDateDay > ((strcmp(szSymbol,"TJF")==0)?i2ndThuDateDay:i3rdWedDateDay))
+	if (iTradeDateDay > ((strcmp(szSymbol,"TJF")==0)?i2ndFriDateDay-1:i3rdWedDateDay))
 	{
 		if (iTradeDateMonth == 12)
 			iHotYearMonth = ((iTradeDateYear+1) * 100) + 1;
